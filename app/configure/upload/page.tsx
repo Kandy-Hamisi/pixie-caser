@@ -18,6 +18,7 @@ const Page = () => {
     onClientUploadComplete: ([data]) => {
       //     do something
       const configId = data.serverData.configId;
+      console.log(configId);
       startTransition(() => {
         router.push(`/configure/design?id=${configId}`);
       });
@@ -30,11 +31,9 @@ const Page = () => {
   const onDropRejected = (rejectedFiles: FileRejection[]) => {
     const [file] = rejectedFiles;
     setIsDragOver(false);
-    // toast({
-    //   title: "File Selected is not supported",
-    //   description: "Please choose .png, .jpg, .jpeg",
-    //   variant: "destructive",
-    // });
+    toast.error(`${file.file.type} type is not supported`, {
+      description: "Please select a PNG, JPG or JPEG",
+    });
   };
 
   const onDropAccepted = (acceptedFiles: File[]) => {
